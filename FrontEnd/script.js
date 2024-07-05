@@ -1,19 +1,17 @@
-
-fetch("http://localhost:5678/api/works") 
-.then(function(response) {
+fetch("http://localhost:5678/api/works")
+  .then(function (response) {
     if (response.ok) {
-        return response.json();
+      return response.json();
     }
-})
+  })
 
-.then(function(data) {
+  .then(function (data) {
     // Emplacement pour les donnees JSON
     console.log(data);
   })
-  .catch(function(error) {
-    console.error('Il y a eu un problème avec la requête fetch:', error);
+  .catch(function (error) {
+    console.error("Il y a eu un problème avec la requête fetch:", error);
   });
-
 
 // la barre des boutons de filtres par catégories
 
@@ -25,14 +23,8 @@ let hoResButtonString = "Hôtels & restaurants";
 
 // let portfolio = document.getElementById("portfolio");
 
-
-
-
-
 let divBarreCategories = document.createElement("div");
 let barreFiltre = document.querySelector("#portfolio h2");
-
-
 
 barreFiltre.appendChild(divBarreCategories);
 
@@ -54,18 +46,17 @@ let hoResButton = document.getElementById("hoResButton");
 // console.log(barreFiltre);
 
 tousButton.addEventListener("click", function () {
-    console.log("bouton Tous")
+  console.log("bouton Tous");
 });
 
-
 objetButton.addEventListener("click", function () {
-    console.log("bouton Objets");
+  console.log("bouton Objets");
 });
 
 appartButton.addEventListener("click", function () {
-    console.log("bouton Appartements");
+  console.log("bouton Appartements");
 });
 
 hoResButton.addEventListener("click", function () {
-    console.log("bouton Hôtels restaurants");
+  console.log("bouton Hôtels restaurants");
 });
