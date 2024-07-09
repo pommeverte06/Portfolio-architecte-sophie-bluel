@@ -1,18 +1,20 @@
-fetch("http://localhost:5678/api/works")
-  .then(function (response) {
-    if (response.ok) {
-      return response.json();
-    }
-  })
+const getWorks = async () => {//c'est une fonction fléchée
 
-  .then(function (data) {
-    // Emplacement pour les donnees JSON
-    console.log(data);
-  })
-  .catch(function (error) {
+
+  try {
+    const datas = await fetch("http://localhost:5678/api/works");
+    const works = await datas.json();
+    console.log(works);
+    works.forEach((work) => {
+      console.log(work);//ajouter les elements de la galerie
+    });
+  } catch (error) {
     console.error("Il y a eu un problème avec la requête fetch:", error);
-  });
+  }
+};
+getWorks();
 
+//************************************************************************** */
 // la barre des boutons de filtres par catégories
 
 //variables pour les noms des boutons chaine de caractere
@@ -22,9 +24,8 @@ let appartButtonString = "Appartements";
 let hoResButtonString = "Hôtels & restaurants";
 
 // let portfolio = document.getElementById("portfolio");
-
-let divBarreCategories = document.createElement("div");
 let barreFiltre = document.querySelector("#portfolio h2");
+let divBarreCategories = document.createElement("div");
 
 barreFiltre.appendChild(divBarreCategories);
 
