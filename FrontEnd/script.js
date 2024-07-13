@@ -4,9 +4,7 @@ const getWorks = async () => {
   try {
     const datas = await fetch("http://localhost:5678/api/works");
     const works = await datas.json();
-    console.log(works);
     const gallery = document.querySelector(".gallery");
-    console.log(gallery);
     gallery.innerHTML = "";
 
     works.forEach((work) => {
@@ -21,7 +19,6 @@ const getWorks = async () => {
 
       figure.appendChild(img);
       figure.appendChild(figcaption);
-
       gallery.appendChild(figure);
     });
   } catch (error) {
@@ -30,52 +27,69 @@ const getWorks = async () => {
 };
 
 getWorks();
-
 //************************************************************************** */
 
-// la barre des boutons de filtres par catégories
+// Variables pour les boutons (globales)
+// Récupération de la barre des filtres
 
-//variables pour les noms des boutons chaine de caractere
-let tousButtonString = "Tous";
-let objetButtonString = "Objets";
-let appartButtonString = "Appartements";
-let hoResButtonString = "Hôtels & restaurants";
-
-// let portfolio = document.getElementById("portfolio");
-let barreFiltre = document.querySelector("#portfolio h2");
-let divBarreCategories = document.createElement("div");
-
+// const portfolio = document.getElementById("portfolio");
+const barreFiltre = document.querySelector("#portfolio h2");
+// Création de la div pour la barre des catégories
+const divBarreCategories = document.createElement("div");
 barreFiltre.appendChild(divBarreCategories);
 
-let divBarreButtons = `
-<button id="tousButton">${tousButtonString}</button>
-<button id="objetButton">${objetButtonString}</button>
-<button id="appartButton">${appartButtonString}</button>
-<button id="hoResButton">${hoResButtonString}</button>
-`;
+// Création des boutons
+const tousButton = document.createElement("button");
+const objetButton = document.createElement("button");
+const appartButton = document.createElement("button");
+const hoResButton = document.createElement("button");
 
-divBarreCategories.innerHTML = divBarreButtons;
+// Ajout des boutons à la div des catégories
+divBarreCategories.appendChild(tousButton);
+divBarreCategories.appendChild(objetButton);
+divBarreCategories.appendChild(appartButton);
+divBarreCategories.appendChild(hoResButton);
 
-let tousButton = document.getElementById("tousButton");
-let objetButton = document.getElementById("objetButton");
-let appartButton = document.getElementById("appartButton");
-let hoResButton = document.getElementById("hoResButton");
+//  barreFiltre = [tousButton, objetButton, appartButton, hoResButton];
+//  console.log(barreFiltre);
+//************************************************************ */
 
-// barreFiltre = [tousButton, objetButton, appartButton, hoResButton];
-// console.log(barreFiltre);
+const getCategories = async () => {
+  //c'est une fonction fléchée
 
-tousButton.addEventListener("click", function () {
-  console.log("bouton Tous");
-});
+  try {
+    const datas = await fetch("http://localhost:5678/api/categories");
+    const categories = await datas.json();
+    console.log(categories);
 
-objetButton.addEventListener("click", function () {
-  console.log("bouton Objets");
-});
+    function barreFiltre() {
+      tousButton.textContent = "Tous";
+      objetButton.textContent = categories[0].name;
+      appartButton.textContent = categories[1].name;
+      hoResButton.textContent = categories[2].name;
 
-appartButton.addEventListener("click", function () {
-  console.log("bouton Appartements");
-});
+      tousButton.addEventListener("click", () => {
+        console.log("bouton Tous");
+      });
 
-hoResButton.addEventListener("click", function () {
-  console.log("bouton Hôtels restaurants");
-});
+      objetButton.addEventListener("click", () => {
+        console.log("bouton Objets");
+      });
+
+      appartButton.addEventListener("click", () => {
+        console.log("bouton Appartements");
+      });
+
+      hoResButton.addEventListener("click", () => {
+        console.log("bouton Hôtels restaurants");
+      });
+    }
+  } catch (error) {
+    console.error("Il y a eu un problème avec la requête fetch:", error);
+  }
+
+  barreFiltre();
+};
+getWorks();
+getCategories();
+//***************************************************************** */
