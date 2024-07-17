@@ -1,5 +1,6 @@
+let filter = 0;
+
 const getWorks = async () => {
-  //c'est une fonction fléchée
 
   try {
     const datas = await fetch("http://localhost:5678/api/works");
@@ -8,18 +9,21 @@ const getWorks = async () => {
     gallery.innerHTML = "";
 
     works.forEach((work) => {
-      const figure = document.createElement("figure");
+      //ajouter une condition avec let filter
+      if (filter == 0 || work.categoryId == filter) {
+        const figure = document.createElement("figure");
 
-      const img = document.createElement("img");
-      img.src = work.imageUrl;
-      img.alt = work.title;
+        const img = document.createElement("img");
+        img.src = work.imageUrl;
+        img.alt = work.title;
 
-      const figcaption = document.createElement("figcaption");
-      figcaption.textContent = work.title;
+        const figcaption = document.createElement("figcaption");
+        figcaption.textContent = work.title;
 
-      figure.appendChild(img);
-      figure.appendChild(figcaption);
-      gallery.appendChild(figure);
+        figure.appendChild(img);
+        figure.appendChild(figcaption);
+        gallery.appendChild(figure);
+      }
     });
   } catch (error) {
     console.error("Il y a eu un problème avec la requête fetch:", error);
@@ -27,69 +31,34 @@ const getWorks = async () => {
 };
 
 getWorks();
-//************************************************************************** */
-
-// Variables pour les boutons (globales)
-// Récupération de la barre des filtres
-
-// const portfolio = document.getElementById("portfolio");
-const barreFiltre = document.querySelector("#portfolio h2");
-// Création de la div pour la barre des catégories
-const divBarreCategories = document.createElement("div");
-barreFiltre.appendChild(divBarreCategories);
-
-// Création des boutons
-const tousButton = document.createElement("button");
-const objetButton = document.createElement("button");
-const appartButton = document.createElement("button");
-const hoResButton = document.createElement("button");
-
-// Ajout des boutons à la div des catégories
-divBarreCategories.appendChild(tousButton);
-divBarreCategories.appendChild(objetButton);
-divBarreCategories.appendChild(appartButton);
-divBarreCategories.appendChild(hoResButton);
-
-//  barreFiltre = [tousButton, objetButton, appartButton, hoResButton];
-//  console.log(barreFiltre);
-//************************************************************ */
 
 const getCategories = async () => {
-  //c'est une fonction fléchée
-
   try {
     const datas = await fetch("http://localhost:5678/api/categories");
     const categories = await datas.json();
-    console.log(categories);
+    const filters = document.querySelector(".filters");
 
-    function barreFiltre() {
-      tousButton.textContent = "Tous";
-      objetButton.textContent = categories[0].name;
-      appartButton.textContent = categories[1].name;
-      hoResButton.textContent = categories[2].name;
+    const tous = document.getElementById("all");
+    tous.addEventListener("click", () => {
+      console.log(0);
+      filter = 0; // Changer le filtre pour 0 pour toutes les catégories
+      getWorks(); // Recharger les travaux avec le nouveau filtre
+    });
 
-      tousButton.addEventListener("click", () => {
-        console.log("bouton Tous");
+    categories.forEach((category) => {
+      const button = document.createElement("button");
+      button.id = category.id;
+      button.textContent = category.name;
+      filters.appendChild(button);
+      button.addEventListener("click", () => {
+        console.log(category.id);
+        filter = category.id; // Changer le filtre pour l'ID de la catégorie
+        getWorks(); // Recharger les travaux avec le nouveau filtre
       });
-
-      objetButton.addEventListener("click", () => {
-        console.log("bouton Objets");
-      });
-
-      appartButton.addEventListener("click", () => {
-        console.log("bouton Appartements");
-      });
-
-      hoResButton.addEventListener("click", () => {
-        console.log("bouton Hôtels restaurants");
-      });
-    }
+    });
   } catch (error) {
     console.error("Il y a eu un problème avec la requête fetch:", error);
   }
-
-  barreFiltre();
 };
 getWorks();
 getCategories();
-//***************************************************************** */
