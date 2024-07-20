@@ -1,7 +1,6 @@
-let filter = 0;
+let filter = "0";
 
 const getWorks = async () => {
-
   try {
     const datas = await fetch("http://localhost:5678/api/works");
     const works = await datas.json();
