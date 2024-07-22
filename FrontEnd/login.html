@@ -20,8 +20,8 @@
         <ul>
           <li>projets</li>
           <li>contact</li>
-          <li>login</li>
-          <li><img src="./assets/icons/instagram.png" alt="Instagram" /></li>
+          <li><a href="index.html">login</a></li>
+          <li><img class="logo-insta" src="./assets/icons/instagram.png" alt="Instagram" /></li>
         </ul>
       </nav>
     </header>
@@ -30,11 +30,11 @@
 
     <section id="contact">
         <h2>Log in</h2>
-        <form action="#" method="post">
+        <form id="login-form" method="post">
           <label for="email">Email</label>
-          <input type="email" name="email" id="email" />
+          <input type="email" name="email" id="email" required/>
           <label for="password">Mot de passe</label>
-          <input type="password" name="password" id="password"></input>
+          <input type="password" name="password" id="password" required></input>
           <input type="submit" value="Se connecter" />
           <p id="forget-password">Mot de passe oublié</p>
         </form>
@@ -50,6 +50,6 @@
     </footer>
     
     <script src="login.js"></script>
-    <script src="script.js"></script>
+    <!-- <script src="script.js"></script> -->
   </body>
 </html>

@@ -108,6 +108,14 @@ section {
 body {
   line-height: 1;
 }
+a{
+  text-decoration: none;
+  color: inherit;
+}
+ a:visited{
+
+  font-weight: 800;
+}
 ol,
 ul {
   list-style: none;
@@ -173,10 +181,18 @@ nav li {
   padding: 0 10px;
   font-size: 1.2em;
 }
+.logo-insta{
+
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+
+}
 
 li:hover {
   color: #b1663c;
 }
+
 #introduction {
   display: flex;
   align-items: center;
@@ -284,6 +300,7 @@ button:active {
   justify-content: center;
   align-items: center;
   text-decoration: underline;
+  cursor: pointer;
 }
 
 input[type="submit"] {
