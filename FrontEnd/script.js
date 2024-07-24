@@ -52,7 +52,7 @@ const getCategories = async () => {
       button.addEventListener("click", () => {
         console.log(category.id);
         filter = category.id; // filtre avec l'id de la catégorie choisie
-        getWorks(); 
+        getWorks();
       });
     });
   } catch (error) {
@@ -61,3 +61,61 @@ const getCategories = async () => {
 };
 getWorks();
 getCategories();
+
+//******************************************************** */
+//creation FA et lien de modifs
+const userModifier = document.getElementById("user-modifier");
+
+const divModifier = document.createElement("div");
+
+const iconFa = document.createElement("i");
+iconFa.classList.add("fas", "fa-pen-to-square");
+
+// Crée un texte
+const textModifier = document.createTextNode(" modifier");
+
+divModifier.appendChild(iconFa);
+divModifier.appendChild(textModifier);
+
+userModifier.appendChild(divModifier);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//*****************recup token */
+function getToken() {
+  // Vérifie si le token est dans le localStorage
+  const token = localStorage.getItem("token");
+  if (token) {
+    console.log("Token OK localstorage");
+    //faire une fonction admin edition
+    adminEdition();
+  } else {
+    console.log("Pas de token");
+  }
+}
+// deconnexion du login
+function removeToken() {
+  // Supprime le token du localstorage
+  localStorage.removeItem("token");
+  // sessionStorage.removeItem("deletedImages");
+}
+
+//fermeture onglet
+window.addEventListener("unload", removeToken);
+//************************************************************** */

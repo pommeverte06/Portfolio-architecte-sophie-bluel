@@ -108,14 +108,11 @@ section {
 body {
   line-height: 1;
 }
-a{
+a {
   text-decoration: none;
   color: inherit;
 }
- a:visited{
 
-  font-weight: 800;
-}
 ol,
 ul {
   list-style: none;
@@ -181,12 +178,10 @@ nav li {
   padding: 0 10px;
   font-size: 1.2em;
 }
-.logo-insta{
-
+.logo-insta {
   width: 20px;
   height: 20px;
   margin-right: 10px;
-
 }
 
 li:hover {
@@ -216,15 +211,30 @@ li:hover {
 #introduction p {
   margin-bottom: 0.5em;
 }
+
+
 #portfolio h2 {
   text-align: center;
   margin-bottom: 1em;
   margin-top: 4em;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  gap: 25px;
+  margin-left: 95px;
 }
 
 .filters {
   text-align: center;
   margin-bottom: 1em;
+}
+
+#user-modifier {
+  color: black;
+  font-size: 14px;
+  padding-top: 5px;
+  cursor: pointer;
+  visibility: hidden;
 }
 
 button {
@@ -241,18 +251,13 @@ button {
   padding-left: 20px;
   padding-right: 20px;
   font-family: "syne";
-  transition: all 250ms ease-in;
+  transition: all 200ms ease-in;
 }
 
 button:hover {
   color: white;
   background-color: #1d6154;
 }
-button:active {
-  color: white;
-  background-color: #1d6154;
-}
-
 
 .gallery {
   width: 100%;
@@ -313,8 +318,6 @@ input[type="submit"] {
   text-align: center;
   border-radius: 60px;
   height: 37px;
-  
-
 }
 
 footer nav ul {

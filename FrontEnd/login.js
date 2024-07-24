@@ -25,7 +25,7 @@ loginForm.addEventListener("submit", async (event) => {
       window.localStorage.setItem("token", userLogin.token);
       window.location.href = "index.html";
     } else {
-      alert("erreur de login ou mot de passe");
+      alert("Erreur dans l'identifiant ou le mot de passe");
       console.log(userLogin);
     }
   } catch (error) {
@@ -33,3 +33,4 @@ loginForm.addEventListener("submit", async (event) => {
     console.log(error);
   }
 });
+
