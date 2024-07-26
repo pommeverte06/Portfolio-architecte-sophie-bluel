@@ -19,7 +19,7 @@ h6,
 p,
 blockquote,
 pre,
-a,
+/* a, */
 abbr,
 acronym,
 address,
@@ -108,9 +108,20 @@ section {
 body {
   line-height: 1;
 }
+
 a {
   text-decoration: none;
   color: inherit;
+}
+
+a:hover,
+a:visited,
+a:active {
+  font-weight: 600;
+}
+
+a:active {
+  color: black;
 }
 
 ol,
@@ -175,17 +186,14 @@ nav ul {
   list-style-type: none;
 }
 nav li {
-  padding: 0 10px;
+  padding: 0 20px;
   font-size: 1.2em;
 }
+
 .logo-insta {
   width: 20px;
   height: 20px;
   margin-right: 10px;
-}
-
-li:hover {
-  color: #b1663c;
 }
 
 #introduction {
@@ -212,13 +220,12 @@ li:hover {
   margin-bottom: 0.5em;
 }
 
-
 #portfolio h2 {
   text-align: center;
   margin-bottom: 1em;
   margin-top: 4em;
   display: flex;
-  justify-content:center;
+  justify-content: center;
   align-items: center;
   gap: 25px;
   margin-left: 95px;
@@ -229,7 +236,7 @@ li:hover {
   margin-bottom: 1em;
 }
 
-#user-modifier {
+.user-modifier {
   color: black;
   font-size: 14px;
   padding-top: 5px;
@@ -237,6 +244,13 @@ li:hover {
   visibility: hidden;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
+.active {
+  visibility: visible;
+}
 button {
   border-radius: 60px;
   color: #1d6154;
@@ -271,7 +285,7 @@ button:hover {
   width: 100%;
 }
 #contact {
-  width: 50%;
+  width: 40%;
   margin: auto;
 }
 #contact > * {

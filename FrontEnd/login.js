@@ -23,6 +23,7 @@ loginForm.addEventListener("submit", async (event) => {
     console.log(userLogin);
     if (userLogin.token) {
       window.localStorage.setItem("token", userLogin.token);
+      window.localStorage.setItem("loggedIn", "true"); 
       window.location.href = "index.html";
     } else {
       alert("Erreur dans l'identifiant ou le mot de passe");
@@ -34,3 +35,38 @@ loginForm.addEventListener("submit", async (event) => {
   }
 });
 
+//******************************************************************** */
+
+//enlever les filtres dès la connexion ok
+document.addEventListener("DOMContentLoaded", () => {
+  const loggedIn = window.localStorage.getItem("loggedIn");
+  if (loggedIn === "true") {
+    // Supprimer la barre de filtres
+    const filters = document.querySelector(".filters");
+
+    if (filters) {
+      filters.classList.add("hidden");
+    }
+    //ajouter le lien modifier
+    const userModifier = document.querySelector(".user-modifier");
+
+    if (userModifier) {
+      userModifier.classList.add("active");
+    }
+
+    //modif liens login et logout après la connexion
+    const logInOut = document.querySelector(".log-in-out");
+
+    if (logInOut) {
+      logInOut.textContent = "logout";
+      logInOut.href = "#";
+      logInOut.addEventListener("click", (event) => {
+        event.preventDefault();
+        window.localStorage.removeItem("token");
+        window.location.href = "index.html";
+      });
+    }
+  }
+  //Supprimer l'indicateur de connexion
+  window.localStorage.removeItem("loggedIn");
+});

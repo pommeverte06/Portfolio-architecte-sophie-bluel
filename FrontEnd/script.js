@@ -1,3 +1,6 @@
+const filters = document.querySelector(".filters");
+
+
 let filter = "0";
 
 const getWorks = async () => {
@@ -62,16 +65,26 @@ const getCategories = async () => {
 getWorks();
 getCategories();
 
+
+
+//***************************************************** */
+
+
+
+
+
+
+
 //******************************************************** */
 //creation FA et lien de modifs
-const userModifier = document.getElementById("user-modifier");
+const userModifier = document.querySelector(".user-modifier");
 
 const divModifier = document.createElement("div");
 
 const iconFa = document.createElement("i");
-iconFa.classList.add("fas", "fa-pen-to-square");
+iconFa.classList.add("far", "fa-pen-to-square");
 
-// Crée un texte
+
 const textModifier = document.createTextNode(" modifier");
 
 divModifier.appendChild(iconFa);
