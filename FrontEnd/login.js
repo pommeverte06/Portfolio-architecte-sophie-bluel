@@ -23,7 +23,7 @@ loginForm.addEventListener("submit", async (event) => {
     console.log(userLogin);
     if (userLogin.token) {
       window.localStorage.setItem("token", userLogin.token);
-      window.localStorage.setItem("loggedIn", "true"); 
+      window.localStorage.setItem("loggedIn", "true");
       window.location.href = "index.html";
     } else {
       alert("Erreur dans l'identifiant ou le mot de passe");

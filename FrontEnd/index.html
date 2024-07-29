@@ -44,7 +44,7 @@
         <figure>
           <img src="./assets/images/sophie-bluel.png" alt="" />
         </figure>
-        <article>
+        <article class="article">
           <h2>Designer d'espace</h2>
           <p>
             Je raconte votre histoire, je valorise vos idées. Je vous accompagne
@@ -66,14 +66,17 @@
       <section id="portfolio">
         <h2>
           Mes Projets
-          <div class="user-modifier hidden"></div>
+          <div class="user-modifier"></div>
+          <article id="modale" class="hidden">
+            <div class="modal-gallery"></div>
+          </article>
         </h2>
         <div class="filters">
-          <button id="0">Tous</button>
+          <button id="0" class="button">Tous</button>
         </div>
         <div class="gallery"></div>
       </section>
-      <section id="contact">
+      <section id="contact" class="contact">
         <h2>Contact</h2>
         <p>Vous avez un projet ? Discutons-en !</p>
         <form id="login-form" method="post">
@@ -83,7 +86,7 @@
           <input type="email" name="email" id="email" />
           <label for="message">Message</label>
           <textarea name="message" id="message" cols="30" rows="10"></textarea>
-          <input type="submit" value="Envoyer" />
+          <input type="submit" class="button" value="Envoyer" />
         </form>
       </section>
     </main>
