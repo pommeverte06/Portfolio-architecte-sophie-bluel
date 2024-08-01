@@ -1,24 +1,27 @@
+// Sélection de l'élément contenant les boutons de filtre
 const filters = document.querySelector(".filters");
 
-let filter = "0";
+let filter = "0"; // Variable pour stocker le filtre sélectionné
 
+// Fonction pour récupérer les travaux depuis l'API
 const getWorks = async () => {
   try {
-    const datas = await fetch("http://localhost:5678/api/works");
-    const works = await datas.json();
+    const response = await fetch("http://localhost:5678/api/works");
+    const works = await response.json();
     return works;
   } catch (error) {
     console.error("Il y a eu un problème avec la requête fetch:", error);
   }
 };
 
+// Fonction pour afficher les travaux dans la galerie principale
 const showWorks = (works) => {
   const gallery = document.querySelector(".gallery");
   gallery.innerHTML = "";
 
   works.forEach((work) => {
-    //ajouter une condition avec let filter
-    if (filter === "0" || work.categoryId === filter) {
+    // Condition pour filtrer les travaux selon la catégorie
+    if (filter === "0" || work.categoryId.toString() === filter) {
       const figure = document.createElement("figure");
 
       const img = document.createElement("img");
@@ -35,19 +38,22 @@ const showWorks = (works) => {
   });
 };
 
-getWorks().then((works) => showWorks(works));
+// Fonction pour mettre à jour les travaux affichés selon le filtre
+const updateWorks = async () => {
+  const works = await getWorks();
+  showWorks(works);
+};
 
+// Fonction pour récupérer les catégories depuis l'API et créer les boutons de filtre
 const getCategories = async () => {
   try {
-    const datas = await fetch("http://localhost:5678/api/categories");
-    const categories = await datas.json();
-    const filters = document.querySelector(".filters");
+    const response = await fetch("http://localhost:5678/api/categories");
+    const categories = await response.json();
 
     const tous = document.getElementById("0");
     tous.addEventListener("click", () => {
-      console.log(0);
-      filter = "0"; // filtre 0 pour toutes les catégories
-      getWorks(); // Recharger les travaux avec le nouveau filtre
+      filter = "0";
+      updateWorks();
     });
 
     categories.forEach((category) => {
@@ -56,83 +62,128 @@ const getCategories = async () => {
       button.textContent = category.name;
       filters.appendChild(button);
       button.addEventListener("click", () => {
-        console.log(category.id);
-        filter = category.id; // filtre avec l'id de la catégorie choisie
-        getWorks();
+        filter = category.id.toString();
+        updateWorks();
       });
     });
   } catch (error) {
     console.error("Il y a eu un problème avec la requête fetch:", error);
   }
 };
-getWorks();
+
+// Initialiser l'affichage des travaux et des catégories
+updateWorks();
 getCategories();
 
-//******************************************************** */
-//creation lien de modifs
-const userModifier = document.querySelector(".user-modifier");
+//***************************************************************** */
+// Création du lien de modification
+const userModify = document.querySelector(".user-modify");
 
-const divModifier = document.createElement("div");
+const divModify = document.createElement("div");
 
-const iconModifier = document.createElement("i");
-iconModifier.classList.add("far", "fa-pen-to-square");
+const iconModify = document.createElement("i");
+iconModify.classList.add("far", "fa-pen-to-square");
 
-const textModifier = document.createTextNode(" modifier");
+const textModify = document.createTextNode(" modifier");
 
-divModifier.appendChild(iconModifier);
-divModifier.appendChild(textModifier);
-userModifier.appendChild(divModifier);
+divModify.appendChild(iconModify);
+divModify.appendChild(textModify);
+userModify.appendChild(divModify);
+//************************************************************************ */
 
-//************************************************************** */
-//creation modale
+// Sélection des éléments de la modale
 const modale = document.getElementById("modale");
+const modalGallery = document.querySelector(".modal-gallery");
 
-const modalGallery = document.createElement("div");
-
-const modalText = document.createElement("span");
-modalText.textContent = "Galerie photo";
-modalText.classList.add("modal-text");
-
-const iconModal = document.createElement("i");
-iconModal.classList.add("fas", "fa-times", "close-modale");
-
-modalGallery.appendChild(modalText);
-modalGallery.appendChild(iconModal);
-modale.appendChild(modalGallery);
-
-//******************************************************* */
 // Fonction pour ouvrir la modale
 async function openModal() {
   if (modale) {
-    modale.classList.remove("hidden");
-    modale.style.visibility = "visible"; // Affiche la modale
+    // Vider le contenu existant de la modale
+    modalGallery.innerHTML = "";
+
+    // Créer et ajouter le texte de la galerie et le bouton de fermeture
+    const modalText = document.createElement("span");
+    modalText.textContent = "Galerie photo";
+    modalText.classList.add("modal-text");
+
+    const iconModal = document.createElement("i");
+    iconModal.classList.add("fas", "fa-times", "close-modale");
+    iconModal.addEventListener("click", closeModal);
+
+    modalGallery.appendChild(modalText);
+    modalGallery.appendChild(iconModal);
+
+    // Créer et ajouter le conteneur d'images dynamiquement
+    const imagesContainer = document.createElement("div");
+    imagesContainer.classList.add("images-container");
+    modalGallery.appendChild(imagesContainer);
+
+    // Créer et ajouter le bouton "Ajouter une photo"
+    const addPhotoButton = document.createElement("button");
+    addPhotoButton.classList.add("add-photo-button");
+    addPhotoButton.textContent = "Ajouter une photo";
+    modalGallery.appendChild(addPhotoButton);
+
+    // Récupérer les travaux et les ajouter au conteneur
     const works = await getWorks();
-    console.log(works);
     works.forEach((work) => {
-      console.log(work);//completer la boucle afficher les images
-      //appel 
+      const wrapper = document.createElement("div"); // Wrapper pour l'image et l'icône de suppression
+      wrapper.classList.add("image-wrapper");
+
+      const img = document.createElement("img");
+      img.src = work.imageUrl;
+      img.alt = work.title;
+      wrapper.appendChild(img);
+
+      // Création de l'icône de corbeille pour la suppression
+      const trashIcon = document.createElement("i");
+      trashIcon.classList.add("fa-solid", "fa-trash-can", "trash-icon");
+      trashIcon.addEventListener("click", () => removeImage(work.id));
+
+      // Ajoute l'événement de suppression
+      wrapper.appendChild(trashIcon);
+
+      imagesContainer.appendChild(wrapper);
     });
+
+    modale.classList.remove("hidden");
+    modale.style.visibility = "visible";
   }
 }
+
 // Fonction pour fermer la modale
 function closeModal() {
   if (modale) {
-    modale.style.visibility = "hidden"; // Cache la modale
+    modale.style.visibility = "hidden";
     modale.classList.add("hidden");
   }
 }
+//****************************************************************** */
+// // Fonction pour supprimer une image
+function removeImage(id) {
+  // Suppression de l'image via une requête API (à implémenter selon votre API)
+  fetch(`http://localhost:5678/api/works/${id}`, {
+    method: "DELETE",
+  })
+    .then((response) => {
+      if (response.ok) {
+        // Actualiser la galerie après suppression
+        openModal();
+      } else {
+        console.error("Erreur lors de la suppression de l'image");
+      }
+    })
+    .catch((error) => {
+      console.error("Il y a eu un problème avec la requête fetch:", error);
+    });
+}
 
 // Événement pour ouvrir la modale
-userModifier.addEventListener("click", () => {
+userModify.addEventListener("click", () => {
   openModal();
 });
 
-// Événement pour fermer la modale
-iconModal.addEventListener("click", () => {
-  closeModal();
-});
-
-// Événement pour fermer la modale en cliquant en dehors de la modal-wrapper
+// Événement pour fermer la modale en cliquant n'importe où
 window.addEventListener("click", (event) => {
   if (event.target === modale) {
     closeModal();

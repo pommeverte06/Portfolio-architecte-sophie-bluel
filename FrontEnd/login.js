@@ -48,10 +48,10 @@ document.addEventListener("DOMContentLoaded", () => {
       filters.classList.add("hidden");
     }
     //ajouter le lien modifier
-    const userModifier = document.querySelector(".user-modifier");
+    const userModify = document.querySelector(".user-modify");
 
-    if (userModifier) {
-      userModifier.classList.add("active");
+    if (userModify) {
+      userModify.classList.add("active");
     }
 
     //modif liens login et logout après la connexion
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (logInOut) {
       logInOut.textContent = "logout";
       logInOut.href = "#";
-      logInOut.addEventListener("click", (event) => {
+      logInOut.addEventListener("click", (event) => {g
         event.preventDefault();
         window.localStorage.removeItem("token");
         window.location.href = "index.html";
